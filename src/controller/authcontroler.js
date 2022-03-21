@@ -73,4 +73,4 @@ const login=async(req,res)=>{
       res.status(404).send({message : err.message})
       }
 }
-module.exports={register,login}
+module.exports={register,login,generatetoken}

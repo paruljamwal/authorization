@@ -36,7 +36,7 @@ catch(err){
 // console.log("decode below");
 // console.log(decoded);
 // console.log(decoded.user._id)
-req.userID=decoded.user._id
+req.user=decoded.user
 return next()
 //get user_id
 

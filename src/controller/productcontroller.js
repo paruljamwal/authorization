@@ -2,6 +2,7 @@ const express=require("express");
 const router=express.Router();
 const productModel=require("../model/productmodel");
 const authenticate=require("../middleware/authencate");
+const authorise=require("../middleware/authorise");
 router.post("",authenticate,async(req,res)=>{
    console.log(req);
    req.body.user_id=req.userID
@@ -24,7 +25,7 @@ router.get("", async (req, res) => {
     }
 });
 
-router.patch("/:id",async(req,res)=>{
+router.patch("/:id",authenticate,authorise(["admin","seller"]),async(req,res)=>{
    try{
        const update= await productModel.findByIdAndUpdate(req.params.id,req.body,{new:true});
       return res.status(202).send(update)
