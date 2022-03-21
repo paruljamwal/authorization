@@ -1,7 +1,7 @@
 //businee work inside it
 const mongoose=require("mongoose");
 const bcrypt = require('bcrypt');
-const productschema=mongoose.Schema({
+const productschema =new mongoose.Schema({
     title:{type:String,require:true},
     price:{type:Number,require:true},
     user_id:{type:mongoose.Schema.Types.ObjectId,ref:"user",require:true}

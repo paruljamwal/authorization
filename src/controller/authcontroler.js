@@ -26,12 +26,12 @@ if(user){
 }
 
  //user does'nt exist so create it
-else{
+// else{
   user=await userModel.create(req.body);
   //create function for token
   const token=generatetoken(user); // using extrnal libraary for this token
   return res.status(202).send({user,token});
-}   
+// }   
 }
 catch(err){
 res.status(404).send({message : err.message})
@@ -44,16 +44,18 @@ res.status(404).send({message : err.message})
 // 1st email exist
 
 const login=async(req,res)=>{
-
+    console.log("comeIn")
     try{
+       
         //check email have or not
         const user=await userModel.findOne({email:req.body.email})
+       console.log(user)
         if(!user){
             return res.status(404).send({message:"Wrong email or password"})
          }
 
          //if have then check password
-        //  console.log(password);
+        //   console.log(password);
           const match=user.checkpassword(req.body.password);
           console.log(match);
           //if does nt match
