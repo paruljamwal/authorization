@@ -4,7 +4,7 @@ const productModel=require("../model/productmodel");
 const authenticate=require("../middleware/authencate");
 const authorise=require("../middleware/authorise");
 router.post("",authenticate,async(req,res)=>{
-   console.log(req);
+   //console.log(req);
    req.body.user_id=req.userID
 try{
  const product=await productModel.create(req.body)
@@ -17,7 +17,7 @@ catch(err){
 
 router.get("", async (req, res) => {
     try{
-        const product = await productModel.find()
+        const product = await productModel.find().lean().exec();
         return res.status(200).send(product)
     }
     catch(err){
@@ -25,7 +25,7 @@ router.get("", async (req, res) => {
     }
 });
 
-router.patch("/:id",authenticate,authorise(["admin","seller"]),async(req,res)=>{
+router.patch("/:id",authenticate,authorise(["admin"]),async(req,res)=>{
    try{
        const update= await productModel.findByIdAndUpdate(req.params.id,req.body,{new:true});
       return res.status(202).send(update)
